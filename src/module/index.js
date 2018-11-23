@@ -1,4 +1,3 @@
-import {firstName, address} from './module';
-
-console.log(firstName, address);
+export { firstName, address } from './module';
+export { user } from './user';
 

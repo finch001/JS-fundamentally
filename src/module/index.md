@@ -26,4 +26,63 @@ ES6模块不是对象，而是通过export命令显式指定输出的代码，�
 
 ### export 命令
 
-一个模块就是一个独立的文件，该文件内部的所有变量
+一个模块就是一个独立的文件，该文件内部的所有变量，外部无法获取，如果需要读取模块内部的某个变量，就必须使用export关键字输出改变量
+
+export输出：变量，函数，类
+
+**需要注意的是，export规定的是对外的接口，必须与模块内部的变量建立一一对应关系**
+
+~~~~~~js
+export var m = 1;
+
+var m = 1;
+export{m};
+
+var n = 1;
+export {n as m};
+~~~~~~
+
+`export` 可以出现在模块的任何位置，只要处于模块顶层就行。 但是如果处于块级作用域，就会报错。
+
+### 模块的整体加载
+
+当我们使用花括号的时候，只是部分加载，所有输出值都加载在这个对象上面。
+
+~~~~~js
+import * as circle from './circle'；
+
+// 下面两行都是不允许的
+circle.foo = 'hello';
+circle.area = function(){}
+~~~~~
+
+模块整体加载所在的那个对象，不允许在运行时改变。
+
+### export default 命令
+
+### export 与import的复合写法
+
+~~~~~js
+export {foo, bar} from 'my_module';
+~~~~~
+
+### 跨模块常量
+
+## import
+
+`import`命令会被JavaScript静态分析，先于模块内的其他语句执行。
+
+~~~~~js
+if(x === 2){
+    import MyModual from './myModual';
+}
+~~~~~
+
+上面代码中，引擎处理`import`语句是在编译时，这时不会去分析或执行`if`语句，所以`import`语句放在`if`代码块之中毫无意义，因此会报句法错误，而不是执行时错误。也就是说，`import`和`export`命令只能在模块的顶层，不能在代码块之中
+
+
+
+
+
+
+
